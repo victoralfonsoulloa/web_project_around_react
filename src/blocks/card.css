@@ -3,6 +3,7 @@
   height: 361px;
   background-color: white;
   position: relative;
+  list-style: none;
 }
 
 .card__image {
