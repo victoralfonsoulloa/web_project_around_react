@@ -1,7 +1,7 @@
-import closeButton from '../../../images/close-button.png'
+import closeButton from '../../../../images/close-button.png'
 
 export default function Popup(props) {
-  const { title, children } = props;
+  const { onClose, title, children } = props;
 
   return (
     <div className="popup popup_type_change_avatar" id="popup-change_avatar">
@@ -10,15 +10,13 @@ export default function Popup(props) {
           <fieldset className="form__fieldset">
             <h2 className="form__title">{title}</h2>
             {children}
-            <button type="submit" className="form__button" id="form__button">
-              Save
-            </button>
           </fieldset>
         </form>
         <button
           type="button"
           className="popup__button-close"
           id="popup__button-close-change-avatar"
+          onClick={ onClose } 
         >
           <img
             src={closeButton}
@@ -30,3 +28,4 @@ export default function Popup(props) {
     </div>
   );
 }
+

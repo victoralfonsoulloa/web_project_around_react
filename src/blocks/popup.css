@@ -7,8 +7,8 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  pointer-events: none;
-  opacity: 0.5;
+  /* pointer-events: none; */
+  /* opacity: 0; */
   top: 0;
   left: 0;
   width: 100%;
@@ -26,11 +26,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-}
-
-.popup--show {
-  pointer-events: auto;
-  opacity: 1;
 }
 
 .popup__container-image {
