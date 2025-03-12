@@ -4,7 +4,7 @@ export default function Popup(props) {
   const { onClose, title, children } = props;
 
   return (
-    <div className="popup popup_type_change_avatar" id="popup-change_avatar">
+    <div className="popup">
       <div className="popup__container">
         <form className="form" id="form--add">
           <fieldset className="form__fieldset">
