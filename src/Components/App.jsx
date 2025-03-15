@@ -1,8 +1,8 @@
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
-import Popup from './Main/Components/Popup/Popup';
-import NewCard from './/Main/Components/Popup/Form/NewCard/NewCard';
+import {  } from "module";
+import '../index.css';
 
 function App() {
   return (

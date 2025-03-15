@@ -1,13 +1,18 @@
-import deleteButton from '../../../../images/delete-button.png'
-import likeButton from '../../../../images/like-button.png'
-
+import deleteButton from '../../../../images/delete-button.png';
+import likeButton from '../../../../images/like-button.png';
 
 export default function Card(props) {
-  const { name, link, isLiked } = props.card;
+  const { name, link } = props.card;
+  const { onImageClick } = props;
 
   return (
     <li className="card">
-      <img src={link} alt={name} className="card__image" />
+      <img
+        src={link}
+        alt={name}
+        className="card__image"
+        onClick={() => onImageClick(link, name)}
+      />
       <button className="card__delete-image">
         <img
           src={deleteButton}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import addButton from '../../images/add-button.png';
 import editIcon from '../../images/edit_icon.svg';
 import editButton from '../../images/edit-button.png';
-import profilePicture from '../../images/linkedin-profile.jpeg';
+import profilePicture from '../../images/profile-picture.JPG';
 import Popup from './Components/Popup/Popup.jsx';
 import NewCard from './Components/Popup/Form/NewCard/NewCard.jsx';
 import EditAvatar from './Components/Popup/Form/EditAvatar/EditAvatar.jsx';
@@ -10,23 +10,54 @@ import EditProfile from './Components/Popup/Form/EditProfile/EditProfile.jsx';
 import Card from './Components/Card/Card.jsx';
 
 export default function Main() {
+  // State to manage the currently active popup
   const [popup, setPopup] = useState(null);
 
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-    console.log(popup);
+  // Function to open a popup and optionally pass image URL and caption
+  function handleOpenPopup(popup, imageUrl = '', caption = '') {
+    if (popup.type === 'image') {
+      setPopup({ ...popup, imageUrl, caption });
+    } else {
+      setPopup(popup);
+    }
+    console.log('Popup state:', popup);
   }
 
+  // Function to close the currently active popup
   function handleClosePopup() {
     setPopup(null);
   }
 
-  const newCardPopup = { title: 'New Place', children: <NewCard /> };
+  // Function to handle image click and open the image popup
+  function handleImageClick(imageUrl, caption) {
+    console.log(
+      'Opening image popup with URL:',
+      imageUrl,
+      'and caption:',
+      caption
+    );
+    handleOpenPopup({ type: 'image' }, imageUrl, caption);
+  }
+
+  // Popup configurations for different actions
+  const newCardPopup = {
+    title: 'New Place',
+    children: <NewCard />,
+    type: 'form',
+  };
   const editAvatarPopup = {
     title: 'Change Profile Picture',
     children: <EditAvatar />,
+    type: 'form',
   };
-  const editProfilePopup = { title: 'Edit Profile', children: <EditProfile /> };
+  const editProfilePopup = {
+    title: 'Edit Profile',
+    children: <EditProfile />,
+    type: 'form',
+  };
+  const openImagePopup = { type: 'image' };
+
+  // Sample card data
   const cards = [
     {
       isLiked: false,
@@ -44,12 +75,15 @@ export default function Main() {
       owner: '5d1f0611d321eb4bdcd707dd',
       createdAt: '2019-07-05T08:11:58.324Z',
     },
+    // Add the rest of your card data here
   ];
 
   return (
     <main className="main">
+      {/* Profile Section */}
       <section className="profile">
         <div className="profile__container">
+          {/* Profile Picture */}
           <div
             className="profile__image"
             onClick={() => handleOpenPopup(editAvatarPopup)}
@@ -67,6 +101,7 @@ export default function Main() {
             />
           </div>
 
+          {/* Profile Bio */}
           <div className="profile__bio">
             <div className="profile__bio-container">
               <h1 className="profile__bio-name">Victor Ulloa</h1>
@@ -85,6 +120,7 @@ export default function Main() {
             <h2 className="profile__bio-description">Software Engineer</h2>
           </div>
         </div>
+        {/* Add New Card Button */}
         <button
           className="profile__bio-add"
           onClick={() => handleOpenPopup(newCardPopup)}
@@ -92,13 +128,23 @@ export default function Main() {
           <img src={addButton} alt="Add button" className="profile__add-icon" />
         </button>
       </section>
-      <section className="cards"> 
-          {cards.map((card) => (
-            <Card key={card._id} card={card} />
-          ))}
+
+      {/* Cards Section */}
+      <section className="cards">
+        {cards.map((card) => (
+          <Card key={card._id} card={card} onImageClick={handleImageClick} />
+        ))}
       </section>
+
+      {/* Popup Component */}
       {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
+        <Popup
+          onClose={handleClosePopup}
+          title={popup.title}
+          type={popup.type}
+          imageUrl={popup.imageUrl}
+          caption={popup.caption}
+        >
           {popup.children}
         </Popup>
       )}
