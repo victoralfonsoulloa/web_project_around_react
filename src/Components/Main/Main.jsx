@@ -8,6 +8,7 @@ import NewCard from './Components/Popup/Form/NewCard/NewCard.jsx';
 import EditAvatar from './Components/Popup/Form/EditAvatar/EditAvatar.jsx';
 import EditProfile from './Components/Popup/Form/EditProfile/EditProfile.jsx';
 import Card from './Components/Card/Card.jsx';
+import RemoveCard from './Components/Popup/Form/RemoveCard/RemoveCard.jsx';
 
 export default function Main() {
   // State to manage the currently active popup
@@ -56,6 +57,18 @@ export default function Main() {
     type: 'form',
   };
   const openImagePopup = { type: 'image' };
+
+  // Popup configuration for deleting a card
+  const deleteCardPopup = {
+    title: 'Are you sure?',
+    children: <RemoveCard />,
+    type: 'form',
+  };
+
+  // Function to handle delete button click
+  function handleDeleteClick() {
+    handleOpenPopup(deleteCardPopup);
+  }
 
   // Sample card data
   const cards = [
@@ -132,7 +145,12 @@ export default function Main() {
       {/* Cards Section */}
       <section className="cards">
         {cards.map((card) => (
-          <Card key={card._id} card={card} onImageClick={handleImageClick} />
+          <Card
+            key={card._id}
+            card={card}
+            onImageClick={handleImageClick}
+            onDeleteClick={handleDeleteClick} // Pass delete handler to Card
+          />
         ))}
       </section>
 

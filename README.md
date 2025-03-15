@@ -1,12 +1,41 @@
-# React + Vite
+# Around The U.S. - React Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React-based implementation of the "Around The U.S." web application. It allows users to edit their profile, add new cards, view images in a popup, and delete cards.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Infrastructure**: Built with Vite.
+- **Styles**: Modular CSS files in the `blocks` directory.
+- **Components**: Reusable React components in the `components` directory.
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Edit profile information.
+- Change profile picture.
+- Add new cards with titles and images.
+- View images in a popup.
+- Delete cards with confirmation.
+
+## Project Setup
+
+1. Clone the repository.
+2. Run `npm install` to install dependencies.
+3. Run `npm run dev` to start the development server.
+
+## File Structure
+
+- `src/index.css` - Main stylesheet.
+- `src/main.jsx` - Entry point for the React application.
+- `src/blocks` - Contains modular CSS files.
+- `src/images` - Contains image assets.
+- `src/components` - Contains React components:
+  - `App.jsx`
+  - `Footer/Footer.jsx`
+  - `Header/Header.jsx`
+  - `Main/Main.jsx`
+  - `Card/Card.jsx`
+  - `Avatar/EditAvatar.jsx`
+  - `EditProfile/EditProfile.jsx`
+  - `ImagePopup/ImagePopup.jsx`
+  - `NewCard/NewCard.jsx`
+  - `RemoveCard/RemoveCard.jsx`

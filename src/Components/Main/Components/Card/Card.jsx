@@ -3,7 +3,7 @@ import likeButton from '../../../../images/like-button.png';
 
 export default function Card(props) {
   const { name, link } = props.card;
-  const { onImageClick } = props;
+  const { onImageClick, onDeleteClick } = props;
 
   return (
     <li className="card">
@@ -13,7 +13,7 @@ export default function Card(props) {
         className="card__image"
         onClick={() => onImageClick(link, name)}
       />
-      <button className="card__delete-image">
+      <button className="card__delete-image" onClick={onDeleteClick}>
         <img
           src={deleteButton}
           alt="Delete button icon"
