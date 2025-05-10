@@ -1,15 +1,31 @@
+import React, { useState, useEffect } from 'react';
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
-import {  } from "module";
+import { api } from '../utils/api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import '../index.css';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    api.getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch user info:", err);
+      });
+  }, []);
+
   return (
     <div className="content-wrapper">
+      <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Main />
       <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }

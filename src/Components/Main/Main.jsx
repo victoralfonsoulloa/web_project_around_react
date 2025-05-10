@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import addButton from '../../images/add-button.png';
 import editIcon from '../../images/edit_icon.svg';
 import editButton from '../../images/edit-button.png';
@@ -9,10 +9,14 @@ import EditAvatar from './Components/Popup/Form/EditAvatar/EditAvatar.jsx';
 import EditProfile from './Components/Popup/Form/EditProfile/EditProfile.jsx';
 import Card from './Components/Card/Card.jsx';
 import RemoveCard from './Components/Popup/Form/RemoveCard/RemoveCard.jsx';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { api } from '../../utils/api.js';
 
 export default function Main() {
   const [cards, setCards] = useState([])
+
+  const currentUser = useContext(CurrentUserContext);
+  console.log(currentUser.about)
 
   useEffect(() => {
     api.getInitialCards()
@@ -70,6 +74,7 @@ export default function Main() {
     children: <EditProfile />,
     type: 'form',
   };
+
   const openImagePopup = { type: 'image' };
 
   // Popup configuration for deleting a card
@@ -95,7 +100,7 @@ export default function Main() {
             onClick={() => handleOpenPopup(editAvatarPopup)}
           >
             <img
-              src={profilePicture}
+              src={currentUser.avatar}
               alt="A profile picture"
               className="profile__image-user"
               id="profile__image-user"
@@ -110,7 +115,7 @@ export default function Main() {
           {/* Profile Bio */}
           <div className="profile__bio">
             <div className="profile__bio-container">
-              <h1 className="profile__bio-name">Victor Ulloa</h1>
+              <h1 className="profile__bio-name">{currentUser.name}</h1>
               <button
                 className="profile__bio-open-popup"
                 id="profile__bio-open-popup"
@@ -123,7 +128,7 @@ export default function Main() {
                 />
               </button>
             </div>
-            <h2 className="profile__bio-description">Software Engineer</h2>
+            <h2 className="profile__bio-description">{currentUser.about}</h2>
           </div>
         </div>
         {/* Add New Card Button */}
