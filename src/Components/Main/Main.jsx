@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import addButton from '../../images/add-button.png';
 import editIcon from '../../images/edit_icon.svg';
 import editButton from '../../images/edit-button.png';
@@ -9,8 +9,22 @@ import EditAvatar from './Components/Popup/Form/EditAvatar/EditAvatar.jsx';
 import EditProfile from './Components/Popup/Form/EditProfile/EditProfile.jsx';
 import Card from './Components/Card/Card.jsx';
 import RemoveCard from './Components/Popup/Form/RemoveCard/RemoveCard.jsx';
+import { api } from '../../utils/api.js';
 
 export default function Main() {
+  const [cards, setCards] = useState([])
+
+  useEffect(() => {
+    api.getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch cards:", err);
+      });
+  }, []);
+  
+
   // State to manage the currently active popup
   const [popup, setPopup] = useState(null);
 
@@ -69,27 +83,6 @@ export default function Main() {
   function handleDeleteClick() {
     handleOpenPopup(deleteCardPopup);
   }
-
-  // Sample card data
-  const cards = [
-    {
-      isLiked: false,
-      _id: '5d1f0611d321eb4bdcd707dd',
-      name: 'Yosemite Valley',
-      link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg',
-      owner: '5d1f0611d321eb4bdcd707dd',
-      createdAt: '2019-07-05T08:10:57.741Z',
-    },
-    {
-      isLiked: false,
-      _id: '5d1f064ed321eb4bdcd707de',
-      name: 'Lake Louise',
-      link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg',
-      owner: '5d1f0611d321eb4bdcd707dd',
-      createdAt: '2019-07-05T08:11:58.324Z',
-    },
-    // Add the rest of your card data here
-  ];
 
   return (
     <main className="main">
