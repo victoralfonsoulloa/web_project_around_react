@@ -2,8 +2,18 @@ import deleteButton from '../../../../images/delete-button.png';
 import likeButton from '../../../../images/like-button.png';
 
 export default function Card(props) {
-  const { name, link } = props.card;
-  const { onImageClick, onDeleteClick } = props;
+  const { name, link, isLiked } = props.card;
+  const { onImageClick, onDeleteClick, onCardLike } = props;
+  console.log(props.card);
+
+  // Verifies if user had liked the card
+  const cardLikeButtonClassName = `card__caption-like_icon${
+    isLiked ? ' card__caption-like_icon--active' : ''
+  }`;
+
+  function handleLikeClick() {
+  onCardLike(props.card);
+}
 
   return (
     <li className="card">
@@ -22,13 +32,14 @@ export default function Card(props) {
       </button>
       <div className="card__caption">
         <p className="card__caption_title">{name}</p>
-        <button className="card__caption_like">
-          <img
-            src={likeButton}
-            alt="Like button"
-            className="card__caption-like_icon"
-          />
-        </button>
+
+          <button
+            className={cardLikeButtonClassName}
+            aria-label="Like button"
+            onClick={handleLikeClick}
+            type="button"
+          ></button>
+
       </div>
     </li>
   );

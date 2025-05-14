@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react';
 import addButton from '../../images/add-button.png';
 import editIcon from '../../images/edit_icon.svg';
 import editButton from '../../images/edit-button.png';
-import profilePicture from '../../images/profile-picture.JPG';
 import Popup from './Components/Popup/Popup.jsx';
 import NewCard from './Components/Popup/Form/NewCard/NewCard.jsx';
 import EditAvatar from './Components/Popup/Form/EditAvatar/EditAvatar.jsx';
@@ -89,6 +88,14 @@ export default function Main() {
     handleOpenPopup(deleteCardPopup);
   }
 
+  async function handleCardLike(card) {
+    const isLiked = card.isLiked;
+    
+    await api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+    }).catch((error) => console.error(error));
+}
+
   return (
     <main className="main">
       {/* Profile Section */}
@@ -148,6 +155,7 @@ export default function Main() {
             card={card}
             onImageClick={handleImageClick}
             onDeleteClick={handleDeleteClick} // Pass delete handler to Card
+            onCardLike = {handleCardLike}
           />
         ))}
       </section>

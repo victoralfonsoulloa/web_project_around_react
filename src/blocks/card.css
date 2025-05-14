@@ -46,6 +46,7 @@
 
 .card__caption_title {
   display: inline-block;
+  width: 90%;
   margin: 0;
   margin-right: auto;
   font-family: Inter;
@@ -71,11 +72,15 @@
 .card__caption-like_icon {
   width: 21px;
   height: 19px;
-}
-
-.card__caption-like_icon:active {
-  background-image: url(../images/like-button_active.png);
+  background-image: url(../images/like-button.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.card__caption-like_icon--active {
+  background-image: url(../images/like-button_active.png);
 }
