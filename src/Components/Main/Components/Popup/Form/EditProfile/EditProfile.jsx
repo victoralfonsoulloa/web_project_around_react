@@ -1,7 +1,28 @@
-export default function EditProfile() {
+import { useContext, useState } from 'react';
+import { CurrentUserContext } from '../../../../../../contexts/CurrentUserContext';
+
+export default function EditProfile({ onClose }) {
+  const { currentUser, handleUpdateUser } = useContext(CurrentUserContext);
+
+  const [name, setName] = useState(currentUser.name || '');
+  const [description, setDescription] = useState(currentUser.about || '');
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const handleClick = (event) => {
+    handleUpdateUser({ name, about: description });
+    onClose();
+  };
+
   return (
     <>
-      <label for="form__field">
+      <label htmlFor="form__field">
         <input
           type="text"
           placeholder="Name"
@@ -9,12 +30,14 @@ export default function EditProfile() {
           className="form__input"
           id="name"
           required
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
+          value={name}
+          onChange={handleNameChange}
         />
         <span className="form__input-error name-error"></span>
       </label>
-      <label for="form__field">
+      <label htmlFor="form__field">
         <input
           type="text"
           placeholder="About me"
@@ -22,15 +45,21 @@ export default function EditProfile() {
           className="form__input form__input-aboutMe"
           id="aboutMe"
           required
-          minlength="2"
-          maxlength="65"
+          minLength="2"
+          maxLength="65"
+          value={description}
+          onChange={handleDescriptionChange}
         />
         <span className="form__input-error aboutMe-error"></span>
       </label>
-      <button type="submit" className="form__button" id="form__button">
+      <button
+        type="button"
+        className="form__button"
+        id="form__button"
+        onClick={handleClick}
+      >
         Save
       </button>
     </>
   );
 }
-

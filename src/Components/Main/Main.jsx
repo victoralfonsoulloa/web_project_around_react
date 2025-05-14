@@ -12,21 +12,21 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { api } from '../../utils/api.js';
 
 export default function Main() {
-  const [cards, setCards] = useState([])
+  const [cards, setCards] = useState([]);
 
-  const currentUser = useContext(CurrentUserContext);
-  console.log(currentUser.about)
+  const { currentUser }= useContext(CurrentUserContext);
+  console.log(currentUser.about);
 
   useEffect(() => {
-    api.getInitialCards()
+    api
+      .getInitialCards()
       .then((data) => {
         setCards(data);
       })
       .catch((err) => {
-        console.error("Failed to fetch cards:", err);
+        console.error('Failed to fetch cards:', err);
       });
   }, []);
-  
 
   // State to manage the currently active popup
   const [popup, setPopup] = useState(null);
@@ -70,40 +70,49 @@ export default function Main() {
   };
   const editProfilePopup = {
     title: 'Edit Profile',
-    children: <EditProfile />,
+    children: <EditProfile onClose={handleClosePopup} />,
     type: 'form',
   };
 
   const openImagePopup = { type: 'image' };
 
   // Popup configuration for deleting a card
- function handleDeleteClick(card) {
-  setPopup({
-    title: 'Are you sure?',
-    children: <RemoveCard onConfirm={() => handleCardDelete(card)}/>,
-    type: 'form',
-  });
-}
+  function handleDeleteClick(card) {
+    setPopup({
+      title: 'Are you sure?',
+      children: <RemoveCard onConfirm={() => handleCardDelete(card)} />,
+      type: 'form',
+    });
+  }
 
   async function handleCardLike(card) {
     const isLiked = card.isLiked;
-    
-    await api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
-    }).catch((error) => console.error(error));
-}
 
-async function handleCardDelete(card) {
-  // Make the API call to delete the card
-  await api.deleteCard(card._id)
-    .then(() => {
-      // If successful, update the state to remove the deleted card from the UI
-      setCards((state) => state.filter((currentCard) => currentCard._id !== card._id));
-      handleClosePopup();
-    })
-    .catch((error) => console.error(error)); // Handle any errors that occur during the API call
-}
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  }
 
+  async function handleCardDelete(card) {
+    // Make the API call to delete the card
+    await api
+      .deleteCard(card._id)
+      .then(() => {
+        // If successful, update the state to remove the deleted card from the UI
+        setCards((state) =>
+          state.filter((currentCard) => currentCard._id !== card._id)
+        );
+        handleClosePopup();
+      })
+      .catch((error) => console.error(error)); // Handle any errors that occur during the API call
+  }
 
   return (
     <main className="main">
@@ -163,9 +172,9 @@ async function handleCardDelete(card) {
             key={card._id}
             card={card}
             onImageClick={handleImageClick}
-            // onDeleteClick={handleDeleteClick} 
+            // onDeleteClick={handleDeleteClick}
             onDeleteClick={() => handleDeleteClick(card)} // Pass delete handler to Card
-            onCardLike = {handleCardLike}
+            onCardLike={handleCardLike}
           />
         ))}
       </section>
