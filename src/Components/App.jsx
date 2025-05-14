@@ -26,13 +26,22 @@ function App() {
       setCurrentUser(newData);
     } catch (err) {
       console.error('Failed to update user info:', err);
-      // Optional: Show an error message to the user
     }
   };
 
+ const handleUpdateAvatar = async ({ avatar }) => {
+  try {
+    const updatedUser = await api.changeProfilePicture(avatar);
+    setCurrentUser(updatedUser);
+  } catch (err) {
+    console.error('Failed to update avatar:', err);
+  }
+};
+
+
   return (
     <div className="content-wrapper">
-      <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+      <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}>
         <Header />
         <Main />
         <Footer />

@@ -65,7 +65,7 @@ export default function Main() {
   };
   const editAvatarPopup = {
     title: 'Change Profile Picture',
-    children: <EditAvatar />,
+    children: <EditAvatar onClose={handleClosePopup} />,
     type: 'form',
   };
   const editProfilePopup = {
