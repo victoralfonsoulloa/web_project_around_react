@@ -58,17 +58,6 @@
   overflow: hidden;
 }
 
-.card__caption_like {
-  border: none;
-  background-color: transparent;
-}
-
-.card__caption_like:hover {
-  cursor: pointer;
-  opacity: 60%;
-  transform: scale(1.1);
-}
-
 .card__caption-like_icon {
   width: 21px;
   height: 19px;
@@ -78,9 +67,14 @@
   background-size: cover;
   border: none;
   background-color: transparent;
-  cursor: pointer;
 }
 
 .card__caption-like_icon--active {
   background-image: url(../images/like-button_active.png);
+}
+
+.card__caption-like_icon:hover {
+  cursor: pointer;
+  opacity: 60%;
+  transform: scale(1.1);
 }

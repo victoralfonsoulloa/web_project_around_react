@@ -77,16 +77,13 @@ export default function Main() {
   const openImagePopup = { type: 'image' };
 
   // Popup configuration for deleting a card
-  const deleteCardPopup = {
+ function handleDeleteClick(card) {
+  setPopup({
     title: 'Are you sure?',
-    children: <RemoveCard />,
+    children: <RemoveCard onConfirm={() => handleCardDelete(card)}/>,
     type: 'form',
-  };
-
-  // Function to handle delete button click
-  function handleDeleteClick() {
-    handleOpenPopup(deleteCardPopup);
-  }
+  });
+}
 
   async function handleCardLike(card) {
     const isLiked = card.isLiked;
@@ -95,6 +92,18 @@ export default function Main() {
         setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
     }).catch((error) => console.error(error));
 }
+
+async function handleCardDelete(card) {
+  // Make the API call to delete the card
+  await api.deleteCard(card._id)
+    .then(() => {
+      // If successful, update the state to remove the deleted card from the UI
+      setCards((state) => state.filter((currentCard) => currentCard._id !== card._id));
+      handleClosePopup();
+    })
+    .catch((error) => console.error(error)); // Handle any errors that occur during the API call
+}
+
 
   return (
     <main className="main">
@@ -154,7 +163,8 @@ export default function Main() {
             key={card._id}
             card={card}
             onImageClick={handleImageClick}
-            onDeleteClick={handleDeleteClick} // Pass delete handler to Card
+            // onDeleteClick={handleDeleteClick} 
+            onDeleteClick={() => handleDeleteClick(card)} // Pass delete handler to Card
             onCardLike = {handleCardLike}
           />
         ))}

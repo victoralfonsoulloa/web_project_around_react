@@ -59,6 +59,7 @@
   font-weight: 400;
 }
 
+
 .form__button {
   height: 50px;
   border-radius: 2px;
@@ -69,6 +70,7 @@
   line-height: 1.21;
   color: #ffffff;
 }
+
 
 .form__button:hover {
   opacity: 80%;

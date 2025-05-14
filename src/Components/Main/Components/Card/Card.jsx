@@ -12,8 +12,8 @@ export default function Card(props) {
   }`;
 
   function handleLikeClick() {
-  onCardLike(props.card);
-}
+    onCardLike(props.card);
+  }
 
   return (
     <li className="card">
@@ -33,13 +33,12 @@ export default function Card(props) {
       <div className="card__caption">
         <p className="card__caption_title">{name}</p>
 
-          <button
-            className={cardLikeButtonClassName}
-            aria-label="Like button"
-            onClick={handleLikeClick}
-            type="button"
-          ></button>
-
+        <button
+          className={cardLikeButtonClassName}
+          aria-label="Like button"
+          onClick={handleLikeClick}
+          type="button"
+        ></button>
       </div>
     </li>
   );
