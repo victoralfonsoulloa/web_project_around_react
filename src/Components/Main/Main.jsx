@@ -10,11 +10,12 @@ import Card from './Components/Card/Card.jsx';
 import RemoveCard from './Components/Popup/Form/RemoveCard/RemoveCard.jsx';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { api } from '../../utils/api.js';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Main() {
   const [cards, setCards] = useState([]);
 
-  const { currentUser }= useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   console.log(currentUser.about);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function Main() {
   // Popup configurations for different actions
   const newCardPopup = {
     title: 'New Place',
-    children: <NewCard onAddCard={handleAddCard} onClose={handleClosePopup}/>,
+    children: <NewCard onAddCard={handleAddCard} onClose={handleClosePopup} />,
     type: 'form',
   };
   const editAvatarPopup = {
@@ -115,15 +116,14 @@ export default function Main() {
   }
 
   async function handleAddCard({ title, imageUrl }) {
-  try {
-    const newCard = await api.addNewCard(title, imageUrl);
-    setCards((prevCards) => [newCard, ...prevCards]);
-    handleClosePopup(); // Close the popup after successful add
-  } catch (error) {
-    console.error("Failed to add card:", error);
+    try {
+      const newCard = await api.addNewCard(title, imageUrl);
+      setCards((prevCards) => [newCard, ...prevCards]);
+      handleClosePopup(); // Close the popup after successful add
+    } catch (error) {
+      console.error('Failed to add card:', error);
+    }
   }
-}
-
 
   return (
     <main className="main">
@@ -191,17 +191,19 @@ export default function Main() {
       </section>
 
       {/* Popup Component */}
-      {popup && (
-        <Popup
-          onClose={handleClosePopup}
-          title={popup.title}
-          type={popup.type}
-          imageUrl={popup.imageUrl}
-          caption={popup.caption}
-        >
-          {popup.children}
-        </Popup>
-      )}
+      <AnimatePresence>
+        {popup && (
+          <Popup
+            onClose={handleClosePopup}
+            title={popup.title}
+            type={popup.type}
+            imageUrl={popup.imageUrl}
+            caption={popup.caption}
+          >
+            {popup.children}
+          </Popup>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

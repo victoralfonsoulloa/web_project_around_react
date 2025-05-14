@@ -1,11 +1,18 @@
 import React from 'react';
 import closeButton from '../../../../images/close-button.png';
+import { motion } from 'framer-motion';
 
 export default function Popup(props) {
   const { onClose, title, children, type, imageUrl, caption } = props;
 
   return (
-    <div className={`popup ${type === 'image' ? 'popup_type_image' : ''}`}>
+    <motion.div
+      className={`popup ${type === 'image' ? 'popup_type_image' : ''}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+    >
       <div
         className={
           type === 'image' ? 'popup__container-image' : 'popup__container'
@@ -33,11 +40,6 @@ export default function Popup(props) {
         <button
           type="button"
           className="popup__button-close"
-          id={
-            type === 'image'
-              ? 'popup__button-close-img'
-              : 'popup__button-close-change-avatar'
-          }
           onClick={onClose}
         >
           <img
@@ -47,6 +49,6 @@ export default function Popup(props) {
           />
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
