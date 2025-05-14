@@ -2,15 +2,16 @@ import { useEffect, useState, useContext } from 'react';
 import addButton from '../../images/add-button.png';
 import editIcon from '../../images/edit_icon.svg';
 import editButton from '../../images/edit-button.png';
-import Popup from './Components/Popup/Popup.js';
-import NewCard from './Components/Popup/Form/NewCard/NewCard.js';
-import EditAvatar from './Components/Popup/Form/EditAvatar/EditAvatar.js';
-import EditProfile from './Components/Popup/Form/EditProfile/EditProfile.js';
-import Card from './Components/Card/Card.js';
-import RemoveCard from './Components/Popup/Form/RemoveCard/RemoveCard.js';
+import Popup from './Components/Popup/Popup.jsx';  
+import NewCard from './Components/Popup/Form/NewCard/NewCard.jsx';  
+import EditAvatar from './Components/Popup/Form/EditAvatar/EditAvatar.jsx';  
+import EditProfile from './Components/Popup/Form/EditProfile/EditProfile.jsx'; 
+import Card from './Components/Card/Card.jsx';  
+import RemoveCard from './Components/Popup/Form/RemoveCard/RemoveCard.jsx'; 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { api } from '../../utils/api.js';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+
 
 export default function Main() {
   const [cards, setCards] = useState([]);
