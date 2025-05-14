@@ -1,4 +1,25 @@
-export default function NewCard() {
+import { useState } from "react";
+
+export default function NewCard({ onAddCard, onClose }) {
+
+  const [title, setTitle] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
+
+  const handleTitle = (event) => {
+    setTitle(event.target.value);
+  }
+
+   const handleImageUrl = (event) => {
+    setImageUrl(event.target.value);
+  }
+
+    const handleClick = () => {
+    onAddCard({ title, imageUrl });
+    setTitle("");      // Reset form
+    setImageUrl("");   // Reset form
+    onClose();
+  };
+
   return (
     <>
       <label className="form__field">
@@ -11,6 +32,8 @@ export default function NewCard() {
           required
           minlength="2"
           maxlength="40"
+          value={title}
+          onChange={handleTitle}
         />
         <span className="form__input-error title-error"></span>
       </label>
@@ -23,10 +46,12 @@ export default function NewCard() {
           id="imageUrl"
           pattern="https://.*"
           required
+          value={imageUrl}
+          onChange={handleImageUrl}
         />
         <span className="form__input-error imageUrl-error"></span>
       </label>
-      <button type="submit" className="form__button" id="form__button">
+      <button type="button" className="form__button" id="form__button" onClick={handleClick}>
         Save
       </button>
     </>

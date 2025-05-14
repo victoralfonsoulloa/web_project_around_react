@@ -60,7 +60,7 @@ export default function Main() {
   // Popup configurations for different actions
   const newCardPopup = {
     title: 'New Place',
-    children: <NewCard />,
+    children: <NewCard onAddCard={handleAddCard} onClose={handleClosePopup}/>,
     type: 'form',
   };
   const editAvatarPopup = {
@@ -113,6 +113,17 @@ export default function Main() {
       })
       .catch((error) => console.error(error)); // Handle any errors that occur during the API call
   }
+
+  async function handleAddCard({ title, imageUrl }) {
+  try {
+    const newCard = await api.addNewCard(title, imageUrl);
+    setCards((prevCards) => [newCard, ...prevCards]);
+    handleClosePopup(); // Close the popup after successful add
+  } catch (error) {
+    console.error("Failed to add card:", error);
+  }
+}
+
 
   return (
     <main className="main">
