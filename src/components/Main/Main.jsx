@@ -17,7 +17,7 @@ export default function Main() {
   const [cards, setCards] = useState([]);
 
   const { currentUser } = useContext(CurrentUserContext);
-  console.log(currentUser.about);
+
 
   useEffect(() => {
     api
@@ -40,7 +40,6 @@ export default function Main() {
     } else {
       setPopup(popup);
     }
-    console.log('Popup state:', popup);
   }
 
   // Function to close the currently active popup
@@ -50,12 +49,6 @@ export default function Main() {
 
   // Function to handle image click and open the image popup
   function handleImageClick(imageUrl, caption) {
-    console.log(
-      'Opening image popup with URL:',
-      imageUrl,
-      'and caption:',
-      caption
-    );
     handleOpenPopup({ type: 'image' }, imageUrl, caption);
   }
 

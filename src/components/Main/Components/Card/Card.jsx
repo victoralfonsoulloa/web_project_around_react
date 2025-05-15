@@ -4,7 +4,7 @@ import likeButton from '../../../../images/like-button.png';
 export default function Card(props) {
   const { name, link, isLiked } = props.card;
   const { onImageClick, onDeleteClick, onCardLike } = props;
-  console.log(props.card);
+
 
   // Verifies if user had liked the card
   const cardLikeButtonClassName = `card__caption-like_icon${
